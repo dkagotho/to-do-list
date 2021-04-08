@@ -16,7 +16,7 @@ function App() {
         setInputText={setInputText}
       />
       {/* passing down the data to the list */}
-      <TodoList todos={todos} />
+      <TodoList todos={todos} setTodos={setTodos} />
     </div>
   );
 }
