@@ -31,7 +31,7 @@ function App() {
   };
   return (
     <div className="App">
-      <h1>My to do list</h1>
+      <h1>My to do list!</h1>
       <Form
         inputText={inputText}
         todos={todos}

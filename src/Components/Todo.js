@@ -1,5 +1,4 @@
 import React from "react";
-import "./Todo.css";
 
 const Todo = ({ text, todo, todos, setTodos }) => {
   //deleting events
