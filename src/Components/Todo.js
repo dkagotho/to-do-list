@@ -1,29 +1,30 @@
 import React from "react";
+import { useResource } from "react-ketting";
 
 const Todo = ({ text, todo, todos, setTodos }) => {
+  console.log(todo.id);
+  const { loading, error, data, setData, submit } = useResource(todo);
+  if (loading) return <p>Loading...</p>;
+
+  if (error) return <div className="error">{error.message}</div>;
+
   //deleting events
   const deleteHandler = () => {
     setTodos(todos.filter((el) => el.id !== todo.id));
   };
   //checking events
-  const completeHandler = () => {
-    setTodos(
-      todos.map((item) => {
-        if (item.id === todo.id) {
-          return {
-            ...item,
-            completed: !item.completed,
-          };
-        }
-        return item;
-      })
-    );
+  const completeHandler = async () => {
+    setData({
+      ...data,
+      complete: !data.completed,
+    });
+    await submit();
   };
 
   return (
     <div className="todo">
-      <li className={`todo-item ${todo.completed ? "completed" : ""}`}>
-        {text}
+      <li className={`todo-item ${data.completed ? "completed" : ""}`}>
+        {data.name}
       </li>
       <button onClick={completeHandler} className="complete-btn">
         <i className="fas fa-check"></i>

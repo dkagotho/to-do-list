@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Form from "./Components/Form";
 import TodoList from "./Components/TodoList";
+import { KettingProvider } from "react-ketting";
+import { Client } from "ketting";
+
+const client = new Client("http://localhost:8081");
 
 function App() {
   const [inputText, setInputText] = useState(" ");
@@ -30,22 +34,24 @@ function App() {
     }
   };
   return (
-    <div className="App">
-      <h1>My to do list!</h1>
-      <Form
-        inputText={inputText}
-        todos={todos}
-        setTodos={setTodos}
-        setInputText={setInputText}
-        setStatus={setStatus}
-      />
-      {/* passing down the data to the list */}
-      <TodoList
-        filteredTodos={filteredTodos}
-        setTodos={setTodos}
-        todos={todos}
-      />
-    </div>
+    <KettingProvider client={client}>
+      <div className="App">
+        <h1>My to do list!</h1>
+        <Form
+          inputText={inputText}
+          todos={todos}
+          setTodos={setTodos}
+          setInputText={setInputText}
+          setStatus={setStatus}
+        />
+        {/* passing down the data to the list */}
+        <TodoList
+          filteredTodos={filteredTodos}
+          setTodos={setTodos}
+          todos={todos}
+        />
+      </div>
+    </KettingProvider>
   );
 }
 

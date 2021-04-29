@@ -1,19 +1,19 @@
 import React from "react";
 import Todo from "./Todo";
+import { useCollection } from "react-ketting";
 
 const TodoList = ({ todos, setTodos, filteredTodos }) => {
+  const { loading, error, items } = useCollection("/todo");
+  if (loading) return <p>Loading...</p>;
+  if (error) return <div className="error">{error.message}</div>;
+
   return (
     <div className="todo-container">
       <ul className="todo-list">
-        {filteredTodos.map((todo) => (
-          <Todo
-            setTodos={setTodos}
-            todos={todos}
-            key={todo.id}
-            todo={todo}
-            text={todo.text}
-          />
-        ))}
+        {items.map((todo) => {
+          console.log(todo.id);
+          return <Todo key={todo.id} todo={todo} />;
+        })}
       </ul>
     </div>
   );
