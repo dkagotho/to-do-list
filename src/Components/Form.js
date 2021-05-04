@@ -1,18 +1,29 @@
 import React from "react";
+import { useResource } from "react-ketting";
 
 const Form = ({ setInputText, todos, setTodos, inputText, setStatus }) => {
+  const { loading, error, data, setData, submit } = useResource({
+    resource: "/todo/",
+    mode: "POST",
+    initialState: {
+      name: "",
+      completed: false,
+    },
+  });
+  console.log("todo");
+  if (loading) return <p>Loading...</p>;
+  if (error) return <div className="error">{error.message}</div>;
+
   const inputTextHandler = (e) => {
-    setInputText(e.target.value);
+    setData({
+      name: e.target.value,
+    });
   };
   //prevent input frm refreshing after hitting add tab
-  const submitTodoHandler = (e) => {
+  const submitTodoHandler = async (e) => {
     e.preventDefault();
-    setTodos([
-      ...todos,
-      { text: inputText, completed: false, id: Math.random() * 1000 },
-    ]);
-    //after submitting test make input box empty
-    setInputText("");
+
+    await submit();
   };
   //keeps the selected status on the list
   const statusHandler = (e) => {
@@ -22,8 +33,7 @@ const Form = ({ setInputText, todos, setTodos, inputText, setStatus }) => {
     <form>
       <input
         //line21 to make ui update with the state. when click on add button text is added
-        value={inputText}
-        onChange={inputTextHandler}
+
         type="text"
         className="todo-input"
       />
