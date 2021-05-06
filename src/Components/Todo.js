@@ -2,8 +2,10 @@ import React from "react";
 import { useResource } from "react-ketting";
 
 const Todo = ({ text, todo, todos, setTodos }) => {
-  console.log(todo.id);
-  const { loading, error, data, setData, submit } = useResource(todo);
+  const { loading, error, data, setData, submit } = useResource({
+    resourse: todo,
+    refreshOnStale: true,
+  });
   if (loading) return <p>Loading...</p>;
 
   if (error) return <div className="error">{error.message}</div>;

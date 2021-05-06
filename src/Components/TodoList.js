@@ -3,7 +3,9 @@ import Todo from "./Todo";
 import { useCollection } from "react-ketting";
 
 const TodoList = ({ todos, setTodos, filteredTodos }) => {
-  const { loading, error, items } = useCollection("/todo");
+  const { loading, error, items } = useCollection("/todo/", {
+    refreshOnStale: true,
+  });
   if (loading) return <p>Loading...</p>;
   if (error) return <div className="error">{error.message}</div>;
 
