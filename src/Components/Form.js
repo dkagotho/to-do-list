@@ -10,11 +10,12 @@ const Form = ({ setInputText, todos, setTodos, inputText, setStatus }) => {
       completed: false,
     },
   });
-  console.log("todo");
+  console.log("todo", loading, error, data, setData, submit);
   if (loading) return <p>Loading...</p>;
   if (error) return <div className="error">{error.message}</div>;
 
   const inputTextHandler = (e) => {
+    console.log("e.target.value");
     setData({
       name: e.target.value,
     });
@@ -32,6 +33,7 @@ const Form = ({ setInputText, todos, setTodos, inputText, setStatus }) => {
   return (
     <form>
       <input
+        onChange={inputTextHandler}
         //line21 to make ui update with the state. when click on add button text is added
 
         type="text"
