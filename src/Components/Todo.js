@@ -7,21 +7,24 @@ const Todo = ({ text, todo, todos, setTodos }) => {
 
   if (error) return <div className="error">{error.message}</div>;
 
+  if (data.deleted) return null;
+
   //deleting events
-  const deleteHandler = () => {
+  const deleteHandler = async () => {
+    console.log("data.deleted");
     setData({
-      delete: data.deleted,
+      deleted: !data.deleted,
     });
+    await submit();
   };
   //checking events
   const completeHandler = async () => {
     setData({
       ...data,
-      complete: !data.completed,
+      completed: !data.completed,
     });
     await submit();
   };
-
   return (
     <div className="todo">
       <li className={`todo-item ${data.completed ? "completed" : ""}`}>

@@ -10,7 +10,8 @@ const client = new Client("http://localhost:8081");
 function App() {
   // const [inputText, setInputText] = useState(" ");
   // const [todos, setTodos] = useState([]);
-  // const [status, setStatus] = useState("all");
+  const [status, setStatus] = useState("all");
+  console.log(status);
   // const [filteredTodos, setFilteredTodos] = useState([]);
 
   // useEffect(() => {
