@@ -38,9 +38,9 @@ function App() {
     <KettingProvider client={client}>
       <div className="App">
         <h1>My to do list!</h1>
-        <Form />
+        <Form setStatus={setStatus} />
         {/* passing down the data to the list */}
-        <TodoList />
+        <TodoList status={status} />
       </div>
     </KettingProvider>
   );
