@@ -1,13 +1,20 @@
 import React from "react";
 import { useResource } from "react-ketting";
 
-const Todo = ({ text, todo, todos, setTodos }) => {
+const Todo = ({ text, todo, todos, setTodos, status }) => {
   const { loading, error, data, setData, submit } = useResource(todo);
   if (loading) return <p>Loading...</p>;
 
   if (error) return <div className="error">{error.message}</div>;
 
   if (data.deleted) return null;
+  if (status != "all") {
+    var completedStatus = true;
+    if (status == "uncompleted") {
+      completedStatus = false;
+    }
+    if (data.completed != completedStatus) return null;
+  }
 
   //deleting events
   const deleteHandler = async () => {

@@ -3,7 +3,7 @@ import Todo from "./Todo";
 import { useCollection } from "react-ketting";
 
 const TodoList = ({ todos, setTodos, filteredTodos, status }) => {
-  const { loading, error, items } = useCollection("/todo", {
+  const { loading, error, items } = useCollection("/todo/", {
     refreshOnStale: true,
   });
 
@@ -13,20 +13,13 @@ const TodoList = ({ todos, setTodos, filteredTodos, status }) => {
   // console.log(status);
   var filteredItems = [...items];
 
-  if (status != "all") {
-    var completedStatus = true;
-    if (status == "uncompleted") {
-      completedStatus = false;
-    }
-    filteredItems = items.filter((data) => data.completed == completedStatus);
-  }
-  console.log(filteredItems);
+  // console.log(filteredItems);
   return (
     <div className="todo-container">
       <ul className="todo-list">
         {filteredItems.map((todo) => {
           console.log(todo.id);
-          return <Todo key={todo.id} todo={todo} />;
+          return <Todo status={status} key={todo.id} todo={todo} />;
         })}
       </ul>
     </div>
